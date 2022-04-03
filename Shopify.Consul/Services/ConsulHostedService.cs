@@ -5,12 +5,12 @@ using Shopify.Consul.Models;
 
 namespace Shopify.Consul.Services
 {
-    public class HostedService : IHostedService
+    public class ConsulHostedService : IHostedService
     {
         private readonly IServiceScopeFactory serviceScopeFactory;
-        private readonly ILogger<HostedService> logger;
+        private readonly ILogger<ConsulHostedService> logger;
 
-        public HostedService(IServiceScopeFactory serviceScopeFactory, ILogger<HostedService> logger)
+        public ConsulHostedService(IServiceScopeFactory serviceScopeFactory, ILogger<ConsulHostedService> logger)
         {
             this.serviceScopeFactory = serviceScopeFactory;
             this.logger = logger;
