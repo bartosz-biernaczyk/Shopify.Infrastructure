@@ -1,9 +1,12 @@
-﻿namespace Shopify.Consul.Options
+﻿using System.Runtime.Serialization;
+
+namespace Shopify.Consul.Options
 {
     public class ConsulOptions
     {
-        public string? Name { get; internal set; }
-        public string? Address { get; internal set; }
+        public string? ConsulUrl { get; internal set; }
+        public string? ServiceName { get; internal set; }
+        public string? ServiceAddress { get; internal set; }
         public int Port { get; internal set; }
         public string[]? Tags { get; internal set; }
         public string? PingEndpoint { get; internal set; }

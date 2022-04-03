@@ -26,13 +26,13 @@ namespace Shopify.Consul.Builders
 
         public IConsulOptionsBuilderNameStage WithAddress(string address)
         {
-            options.Address = address;
+            options.ServiceAddress = address;
             return this;
         }
 
         public IConsulOptionsBuilderPortStage WithName(string name)
         {
-            options.Name = name;
+            options.ServiceName = name;
             return this;
         }
 

@@ -37,9 +37,9 @@ namespace Shopify.Consul.Extensions
 
             ServiceDetails serviceDetails = new()
             {
-                Name = options.Name,
-                ID = $"{options.Name}:{Guid.NewGuid()}",
-                Address = options.Address,
+                Name = options.ServiceName,
+                ID = $"{options.ServiceName}:{Guid.NewGuid()}",
+                Address = options.ServiceAddress,
                 Port = options.Port,
                 Tags = options.Tags
             };
@@ -63,7 +63,7 @@ namespace Shopify.Consul.Extensions
 
             serviceCollection.AddSingleton(serviceDetails);
             serviceCollection.AddTransient<IServiceRegistryProvider, ServiceRegistryProvider>();
-            serviceCollection.AddTransient<IConsulService, ConsulService>();
+            serviceCollection.AddHttpClient<IConsulService, ConsulService>("consul-service", client => client.BaseAddress = new Uri(options.ConsulUrl));
 
             if (options.UseHttpClient)
             {

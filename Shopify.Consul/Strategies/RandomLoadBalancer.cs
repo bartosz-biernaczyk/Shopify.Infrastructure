@@ -6,7 +6,7 @@ namespace Shopify.Consul.Strategies
     {
         private static readonly Random random = new();
 
-        public ServiceAgent LoadBalance(IDictionary<string, ServiceAgent> listedServices)
-        => listedServices.Values.ElementAt(random.Next(0, listedServices.Count));
+        public ServiceAgent? LoadBalance(IDictionary<string, ServiceAgent> listedServices)
+        => listedServices?.Values.ElementAt(random.Next(0, listedServices.Count));
     }
 }
