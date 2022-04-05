@@ -44,13 +44,13 @@ namespace Shopify.Consul.Extensions
                 Tags = options.Tags
             };
 
-            if (!string.IsNullOrEmpty(options.PingEndpoint))
+            if (!string.IsNullOrEmpty(options.PingUrl))
             {
                 serviceDetails.Checks = new[] {
                 new ServiceCheck()
                 {
                     Method = "GET",
-                    HTTP = options.PingEndpoint,
+                    HTTP = options.PingUrl,
                     Interval = $"{options.PingInterval.TotalSeconds}s",
                     Timeout = $"{options.Timeout.TotalSeconds}s",
                     SuccessBeforePassing = 1,

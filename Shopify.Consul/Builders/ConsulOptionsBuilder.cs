@@ -38,7 +38,7 @@ namespace Shopify.Consul.Builders
 
         public IConsulEndpointOptionsBuilder WithPingEndpoint(string pingEndpoint)
         {
-            options.PingEndpoint = pingEndpoint;
+            options.PingUrl = pingEndpoint;
             return this;
         }
 
