@@ -2,7 +2,6 @@
 {
     public interface IConsulOptionsBuilderNameStage
     {
-        public IConsulOptionsBuilderPortStage WithName(string name);
-
+        IConsulOptionsBuilderPortStage WithName(string name);
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IConsulOptionsBuilderInitial
     {
-        public IConsulOptionsBuilderNameStage WithAddress(string address);
+        IConsulOptionsBuilderNameStage WithAddress(string address);
     }
 }

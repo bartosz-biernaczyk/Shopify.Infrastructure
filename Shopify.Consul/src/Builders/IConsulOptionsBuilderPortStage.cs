@@ -2,7 +2,6 @@
 {
     public interface IConsulOptionsBuilderPortStage
     {
-        public IConsulOptionsBuilderFinal WithPort(int port);
-
+        IConsulOptionsBuilderFinal WithPort(int port);
     }
 }

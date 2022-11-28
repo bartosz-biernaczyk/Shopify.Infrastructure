@@ -1,4 +1,5 @@
 ﻿using Shopify.Consul.Options;
+using System;
 
 namespace Shopify.Consul.Builders
 {
@@ -12,7 +13,7 @@ namespace Shopify.Consul.Builders
         private readonly ConsulOptions options;
         public ConsulOptionsBuilder()
         {
-            options = new();
+            options = new ConsulOptions();
         }
 
         public ConsulOptions Build() => options;

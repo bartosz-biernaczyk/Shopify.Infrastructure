@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Shopify.Consul.Extensions
 {
@@ -8,11 +10,11 @@ namespace Shopify.Consul.Extensions
         private const string NextParamSign = "&";
         private const string EqualSign = "=";
 
-        internal static Uri BuildUri(string url, params KeyValuePair<string, string>[]? queryParameters)
+        internal static Uri BuildUri(string url, params KeyValuePair<string, string>[] queryParameters)
         {
             var builder = new UriBuilder(url);
 
-            if (queryParameters is not null && queryParameters.Length != 0)
+            if (! (queryParameters is null) && queryParameters.Length != 0)
             {
                 builder.Query = BuildQueryPart(queryParameters);
             }

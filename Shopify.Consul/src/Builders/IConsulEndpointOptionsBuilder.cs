@@ -1,4 +1,6 @@
-﻿namespace Shopify.Consul.Builders
+﻿using System;
+
+namespace Shopify.Consul.Builders
 {
     public interface IConsulEndpointOptionsBuilder
     {

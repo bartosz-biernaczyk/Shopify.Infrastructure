@@ -2,7 +2,11 @@
 using Shopify.Consul.Exceptions;
 using Shopify.Consul.Extensions;
 using Shopify.Consul.Models;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Shopify.Consul.Services
 {
@@ -34,7 +38,7 @@ namespace Shopify.Consul.Services
                 throw new ValidationException(nameof(serviceId));
             }
 
-            return await httpClient.PutAsync(HttpUtils.BuildUri($"{Version}/agent/service/deregister/{serviceId}"), PrepareRequestPayload(new()), token);
+            return await httpClient.PutAsync(HttpUtils.BuildUri($"{Version}/agent/service/deregister/{serviceId}"), PrepareRequestPayload(new { }), token);
         }
 
         public async Task<IDictionary<string, ServiceAgent>> ListServices(CancellationToken token)
@@ -47,20 +51,20 @@ namespace Shopify.Consul.Services
                 throw new ValidationException(nameof(serviceName));
             }
 
-            return await ListFilteredServices(new KeyValuePair<string, string>[] { new("filter", $"Service=={serviceName}") }, cancellationToken);
+            return await ListFilteredServices(new KeyValuePair<string, string>[] { new KeyValuePair<string, string>("filter", $"Service=={serviceName}") }, cancellationToken);
         }
 
-        private async Task<IDictionary<string, ServiceAgent>> ListFilteredServices(KeyValuePair<string, string>[]? queryParameters, CancellationToken cancellationToken)
+        private async Task<IDictionary<string, ServiceAgent>> ListFilteredServices(KeyValuePair<string, string>[] queryParameters, CancellationToken cancellationToken)
         {
             var response = await httpClient.GetAsync(HttpUtils.BuildUri($"{Version}/agent/services", queryParameters), cancellationToken);
 
             return response.IsSuccessStatusCode ?
-                JsonConvert.DeserializeObject<IDictionary<string, ServiceAgent>>(await response.Content.ReadAsStringAsync(cancellationToken))!
+                JsonConvert.DeserializeObject<IDictionary<string, ServiceAgent>>(await response.Content.ReadAsStringAsync())
                 : new Dictionary<string, ServiceAgent>();
         }
 
         private static StringContent PrepareRequestPayload(object payload)
-            => new(JsonConvert.SerializeObject(payload), Encoding.UTF8, MediaType);
+            => new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, MediaType);
     }
 }
 
