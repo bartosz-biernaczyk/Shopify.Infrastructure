@@ -5,6 +5,7 @@ namespace Shopify.Consul.Builders
 {
     public class ConsulOptionsBuilder :
         IConsulOptionsBuilderInitial,
+        IConsulOptionsBuilderServiceAddressStage,
         IConsulOptionsBuilderNameStage,
         IConsulOptionsBuilderFinal,
         IConsulOptionsBuilderPortStage,
@@ -17,6 +18,14 @@ namespace Shopify.Consul.Builders
         }
 
         public ConsulOptions Build() => options;
+
+        public IConsulOptionsBuilderServiceAddressStage Enable(Uri consulUri)
+        {
+            options.Enabled = true;
+            options.ConsulUrl = consulUri.ToString();
+
+            return this;
+        }
 
         public IConsulOptionsBuilderFinal UseHttpClient(string key = "consul")
         {

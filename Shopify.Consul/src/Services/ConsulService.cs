@@ -28,7 +28,7 @@ namespace Shopify.Consul.Services
                 throw new ValidationException(nameof(serviceDetails));
             }
 
-            return await httpClient.PutAsync(HttpUtils.BuildUri($"{Version}/agent/service/register"), PrepareRequestPayload(serviceDetails), cancellationToken);
+            return await httpClient.PutAsync($"{Version}/agent/service/register", PrepareRequestPayload(serviceDetails), cancellationToken);
         }
 
         public async Task<HttpResponseMessage> DeregisterAsync(string serviceId, CancellationToken token)
@@ -38,7 +38,7 @@ namespace Shopify.Consul.Services
                 throw new ValidationException(nameof(serviceId));
             }
 
-            return await httpClient.PutAsync(HttpUtils.BuildUri($"{Version}/agent/service/deregister/{serviceId}"), PrepareRequestPayload(new { }), token);
+            return await httpClient.PutAsync($"{Version}/agent/service/deregister/{serviceId}", PrepareRequestPayload(new { }), token);
         }
 
         public async Task<IDictionary<string, ServiceAgent>> ListServices(CancellationToken token)
@@ -56,7 +56,7 @@ namespace Shopify.Consul.Services
 
         private async Task<IDictionary<string, ServiceAgent>> ListFilteredServices(KeyValuePair<string, string>[] queryParameters, CancellationToken cancellationToken)
         {
-            var response = await httpClient.GetAsync(HttpUtils.BuildUri($"{Version}/agent/services", queryParameters), cancellationToken);
+            var response = await httpClient.GetAsync(HttpUtils.BuildUrlWithParameters($"{Version}/agent/services", queryParameters), cancellationToken);
 
             return response.IsSuccessStatusCode ?
                 JsonConvert.DeserializeObject<IDictionary<string, ServiceAgent>>(await response.Content.ReadAsStringAsync())

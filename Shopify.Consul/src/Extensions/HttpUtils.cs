@@ -10,16 +10,15 @@ namespace Shopify.Consul.Extensions
         private const string NextParamSign = "&";
         private const string EqualSign = "=";
 
-        internal static Uri BuildUri(string url, params KeyValuePair<string, string>[] queryParameters)
+        internal static string BuildUrlWithParameters(string url, params KeyValuePair<string, string>[] queryParameters)
         {
-            var builder = new UriBuilder(url);
-
+            string queryPart = string.Empty;
             if (! (queryParameters is null) && queryParameters.Length != 0)
             {
-                builder.Query = BuildQueryPart(queryParameters);
+                queryPart = BuildQueryPart(queryParameters);
             }
 
-            return builder.Uri;
+            return string.IsNullOrEmpty(queryPart) ? url : string.Concat(url, queryPart);
         }
 
         private static string BuildQueryPart(KeyValuePair<string, string>[] queryParameters)
