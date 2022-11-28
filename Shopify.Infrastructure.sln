@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shopify.Consul", "Shopify.Consul", "{AF64278D-ADE2-40E1-BDC6-09247BF59835}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BDD5A6F1-00DC-4A78-A242-56AC67EB8F91}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopify.Consul", "Shopify.Consul\src\Shopify.Consul.csproj", "{FE5252A3-8156-4356-B77D-91217B69A054}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F992355F-0F40-45B9-B175-07F5DD513F53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopify.Consul.UnitTests", "Shopify.Consul\tests\Shopify.Consul.UnitTests\Shopify.Consul.UnitTests.csproj", "{E4700B23-3A19-4BA1-B2E5-FE6915D9CDC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE5252A3-8156-4356-B77D-91217B69A054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5252A3-8156-4356-B77D-91217B69A054}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5252A3-8156-4356-B77D-91217B69A054}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5252A3-8156-4356-B77D-91217B69A054}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4700B23-3A19-4BA1-B2E5-FE6915D9CDC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4700B23-3A19-4BA1-B2E5-FE6915D9CDC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4700B23-3A19-4BA1-B2E5-FE6915D9CDC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4700B23-3A19-4BA1-B2E5-FE6915D9CDC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BDD5A6F1-00DC-4A78-A242-56AC67EB8F91} = {AF64278D-ADE2-40E1-BDC6-09247BF59835}
+		{FE5252A3-8156-4356-B77D-91217B69A054} = {BDD5A6F1-00DC-4A78-A242-56AC67EB8F91}
+		{F992355F-0F40-45B9-B175-07F5DD513F53} = {AF64278D-ADE2-40E1-BDC6-09247BF59835}
+		{E4700B23-3A19-4BA1-B2E5-FE6915D9CDC2} = {F992355F-0F40-45B9-B175-07F5DD513F53}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C876D08-06B8-4F4E-AE07-7442B561C619}
+	EndGlobalSection
+EndGlobal
