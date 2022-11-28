@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Shopify.Consul.Options
+﻿namespace Shopify.Consul.Options
 {
     public class ConsulOptions
     {

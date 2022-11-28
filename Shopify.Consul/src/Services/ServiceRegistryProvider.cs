@@ -17,7 +17,7 @@ namespace Shopify.Consul.Services
 
         public async Task<ServiceAgent?> GetAsync(string name, CancellationToken token)
         {
-            var services = await consulService.ListServicesAsync(name, token);
+            var services = await consulService.ListServicesByNameAsync(name, token);
 
             return !services.Any() ? null : loadBalancer.LoadBalance(services);
         }

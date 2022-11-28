@@ -2,11 +2,7 @@
 using Shopify.Consul.Exceptions;
 using Shopify.Consul.Extensions;
 using Shopify.Consul.Models;
-using System.Net.Http.Json;
 using System.Text;
-using System.Threading;
-using System.Web;
-using System.Xml.Linq;
 
 namespace Shopify.Consul.Services
 {
@@ -37,11 +33,14 @@ namespace Shopify.Consul.Services
             {
                 throw new ValidationException(nameof(serviceId));
             }
-            
+
             return await httpClient.PutAsync(HttpUtils.BuildUri($"{Version}/agent/service/deregister/{serviceId}"), PrepareRequestPayload(new()), token);
         }
 
-        public async Task<IDictionary<string, ServiceAgent>> ListServicesAsync(string serviceName, CancellationToken cancellationToken)
+        public async Task<IDictionary<string, ServiceAgent>> ListServices(CancellationToken token)
+            => await ListFilteredServices(null, token);
+
+        public async Task<IDictionary<string, ServiceAgent>> ListServicesByNameAsync(string serviceName, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(serviceName))
             {
@@ -51,7 +50,7 @@ namespace Shopify.Consul.Services
             return await ListFilteredServices(new KeyValuePair<string, string>[] { new("filter", $"Service=={serviceName}") }, cancellationToken);
         }
 
-        private async Task<IDictionary<string, ServiceAgent>> ListFilteredServices(KeyValuePair<string,string>[] queryParameters, CancellationToken cancellationToken)
+        private async Task<IDictionary<string, ServiceAgent>> ListFilteredServices(KeyValuePair<string, string>[]? queryParameters, CancellationToken cancellationToken)
         {
             var response = await httpClient.GetAsync(HttpUtils.BuildUri($"{Version}/agent/services", queryParameters), cancellationToken);
 
@@ -61,12 +60,7 @@ namespace Shopify.Consul.Services
         }
 
         private static StringContent PrepareRequestPayload(object payload)
-        {
-            var serializedContent = JsonConvert.SerializeObject(payload);
-            var requestPayload = new StringContent(serializedContent, Encoding.UTF8, MediaType);
-            
-            return requestPayload;
-        }
+            => new(JsonConvert.SerializeObject(payload), Encoding.UTF8, MediaType);
     }
 }
 
