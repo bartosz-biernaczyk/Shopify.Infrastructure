@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopify.Consul", "Shopify.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F992355F-0F40-45B9-B175-07F5DD513F53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopify.Consul.UnitTests", "Shopify.Consul\tests\Shopify.Consul.UnitTests\Shopify.Consul.UnitTests.csproj", "{E4700B23-3A19-4BA1-B2E5-FE6915D9CDC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shopify.Consul.UnitTests", "Shopify.Consul\tests\Shopify.Consul.UnitTests\Shopify.Consul.UnitTests.csproj", "{E4700B23-3A19-4BA1-B2E5-FE6915D9CDC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
