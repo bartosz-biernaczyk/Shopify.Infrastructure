@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace Shopify.Consul.Extensions
@@ -13,7 +12,7 @@ namespace Shopify.Consul.Extensions
         internal static string BuildUrlWithParameters(string url, params KeyValuePair<string, string>[] queryParameters)
         {
             string queryPart = string.Empty;
-            if (! (queryParameters is null) && queryParameters.Length != 0)
+            if (!(queryParameters is null) && queryParameters.Length != 0)
             {
                 queryPart = BuildQueryPart(queryParameters);
             }

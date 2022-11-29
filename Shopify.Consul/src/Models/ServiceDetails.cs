@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shopify.Consul.Models
+﻿namespace Shopify.Consul.Models
 {
 #if NETSTANDARD2_0_OR_GREATER
     public class ServiceDetails

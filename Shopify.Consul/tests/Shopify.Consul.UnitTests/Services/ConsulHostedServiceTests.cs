@@ -44,7 +44,7 @@ namespace Shopify.Consul.UnitTests.Services
 
             // Assert
             consulServiceMock.Verify(mock => mock.RegisterAsync(It.IsAny<ServiceDetails>(), cancellationToken), Times.Once);
-            
+
             loggerMock.Verify(mock =>
             mock.Log(LogLevel.Information, 0, It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(), It.IsAny<Func<It.IsAnyType, Exception, string>>()),
             Times.Exactly(ExpectedInformationLogs));
@@ -80,7 +80,7 @@ namespace Shopify.Consul.UnitTests.Services
         {
             // Arrange
             const int ExpectedInformationLogs = 2;
-            
+
             var serviceId = "service-id";
             serviceDetails.ID = serviceId;
 

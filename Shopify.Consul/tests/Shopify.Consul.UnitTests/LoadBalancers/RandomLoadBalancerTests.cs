@@ -20,7 +20,7 @@ namespace Shopify.Consul.UnitTests.LoadBalancers
             var serviceKey = "key";
             var registeredServices = new Dictionary<string, ServiceAgent>()
             {
-                [serviceKey] = new ServiceAgent() { Service = "test"}
+                [serviceKey] = new ServiceAgent() { Service = "test" }
             };
 
             // Act
@@ -34,7 +34,7 @@ namespace Shopify.Consul.UnitTests.LoadBalancers
         public void LoadBalance_CollectionWithMultipleItems_ReturnSingleItem()
         {
             // Arrange
-            
+
             var registeredServices = new Dictionary<string, ServiceAgent>()
             {
                 ["key1"] = new ServiceAgent() { Service = "Service1" },
