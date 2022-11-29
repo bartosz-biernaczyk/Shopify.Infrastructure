@@ -51,7 +51,7 @@ namespace Shopify.Consul.Services
                 throw new ValidationException(nameof(serviceName));
             }
 
-            return await ListFilteredServices(new KeyValuePair<string, string>[] { new KeyValuePair<string, string>("filter", $"Service=={serviceName}") }, cancellationToken);
+            return await ListFilteredServices(new KeyValuePair<string, string>[] { new KeyValuePair<string, string>("filter", $"Service=={serviceName.ToLower()}") }, cancellationToken);
         }
 
         private async Task<IDictionary<string, ServiceAgent>> ListFilteredServices(KeyValuePair<string, string>[] queryParameters, CancellationToken cancellationToken)
