@@ -42,7 +42,7 @@ namespace Shopify.Consul.Builders
 
         public IConsulOptionsBuilderPortStage WithName(string name)
         {
-            options.ServiceName = name;
+            options.ServiceName = name.ToLower();
             return this;
         }
 

@@ -10,7 +10,7 @@ namespace Shopify.Consul.Services
     {
         Task<HttpResponseMessage> RegisterAsync(ServiceDetails serviceDetails, CancellationToken token);
         Task<HttpResponseMessage> DeregisterAsync(string serviceId, CancellationToken token);
-        Task<IDictionary<string, ServiceAgent>> ListServices(CancellationToken token);
+        Task<IDictionary<string, ServiceAgent>> ListServicesAsync(CancellationToken token);
         Task<IDictionary<string, ServiceAgent>> ListServicesByNameAsync(string name, CancellationToken token);
     }
 }

@@ -41,7 +41,7 @@ namespace Shopify.Consul.Services
             return await httpClient.PutAsync($"{Version}/agent/service/deregister/{serviceId}", PrepareRequestPayload(new { }), token);
         }
 
-        public async Task<IDictionary<string, ServiceAgent>> ListServices(CancellationToken token)
+        public async Task<IDictionary<string, ServiceAgent>> ListServicesAsync(CancellationToken token)
             => await ListFilteredServices(null, token);
 
         public async Task<IDictionary<string, ServiceAgent>> ListServicesByNameAsync(string serviceName, CancellationToken cancellationToken)
