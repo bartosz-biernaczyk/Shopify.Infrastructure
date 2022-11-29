@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Shopify.Consul.UnitTests")]
 namespace Shopify.Consul.Strategies
 {
-    public class RandomLoadBalancer : ILoadBalancer
+    internal class RandomLoadBalancer : ILoadBalancer
     {
         private static readonly Random random = new Random();
 
