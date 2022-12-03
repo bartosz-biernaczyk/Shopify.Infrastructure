@@ -1,8 +1,5 @@
-﻿using Moq;
-using Shopify.Consul.Services;
+﻿using Shopify.Consul.Services;
 using Shopify.Consul.UnitTests.Mocks;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Shopify.Consul.UnitTests.Services
 {
@@ -49,12 +46,12 @@ namespace Shopify.Consul.UnitTests.Services
             // Arrange
             CancellationToken cancellationToken = CancellationToken.None;
             HttpRequestMessage? sentRequest = null;
-            
-            mockedHandler.SetBehavior((actualRequest, _) => 
-            { 
-                sentRequest = actualRequest; 
 
-                return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK)); 
+            mockedHandler.SetBehavior((actualRequest, _) =>
+            {
+                sentRequest = actualRequest;
+
+                return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.OK));
             });
 
             // Act
