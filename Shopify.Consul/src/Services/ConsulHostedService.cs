@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shopify.Consul.Models;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Shopify.Consul.Services
 {
@@ -44,7 +46,7 @@ namespace Shopify.Consul.Services
 
             logger.LogInformation("Registering service in Consul. ServiceName: '{serviceId}'", serviceDetails.ID);
 
-            var deregistrationResult = await consulService.DeregisterAsync(serviceDetails.ID!, cancellationToken);
+            var deregistrationResult = await consulService.DeregisterAsync(serviceDetails.ID, cancellationToken);
 
             if (!deregistrationResult.IsSuccessStatusCode)
             {

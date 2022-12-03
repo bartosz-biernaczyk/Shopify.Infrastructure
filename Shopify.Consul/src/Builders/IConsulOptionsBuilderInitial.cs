@@ -1,7 +1,9 @@
-﻿namespace Shopify.Consul.Builders
+﻿using System;
+
+namespace Shopify.Consul.Builders
 {
     public interface IConsulOptionsBuilderInitial
     {
-        public IConsulOptionsBuilderNameStage WithAddress(string address);
+        IConsulOptionsBuilderServiceAddressStage Enable(Uri consulUri);
     }
 }

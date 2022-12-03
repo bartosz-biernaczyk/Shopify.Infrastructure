@@ -1,6 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Shopify.Consul.Exceptions;
+using Shopify.Consul.Extensions;
 using Shopify.Consul.Models;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Shopify.Consul.Services
 {
@@ -15,27 +21,50 @@ namespace Shopify.Consul.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<HttpResponseMessage> DeregisterAsync(string serviceId, CancellationToken token)
-            => await httpClient.PutAsync($"{Version}/agent/service/deregister/{serviceId}", PrepareRequestPayload(new()), token);
-
-        public async Task<IDictionary<string, ServiceAgent>> ListServicesAsync(string name, CancellationToken cancellationToken)
+        public async Task<HttpResponseMessage> RegisterAsync(ServiceDetails serviceDetails, CancellationToken cancellationToken)
         {
-            var response = await httpClient.GetAsync($"{Version}/agent/services?filter=Service==\"{name}\"", cancellationToken);
+            if (serviceDetails is null)
+            {
+                throw new ValidationException(nameof(serviceDetails));
+            }
+
+            return await httpClient.PutAsync($"{Version}/agent/service/register", PrepareRequestPayload(serviceDetails), cancellationToken);
+        }
+
+        public async Task<HttpResponseMessage> DeregisterAsync(string serviceId, CancellationToken token)
+        {
+            if (string.IsNullOrWhiteSpace(serviceId))
+            {
+                throw new ValidationException(nameof(serviceId));
+            }
+
+            return await httpClient.PutAsync($"{Version}/agent/service/deregister/{serviceId.ToLower()}", PrepareRequestPayload(new { }), token);
+        }
+
+        public async Task<IDictionary<string, ServiceAgent>> ListServicesAsync(CancellationToken token)
+            => await ListFilteredServices(null, token);
+
+        public async Task<IDictionary<string, ServiceAgent>> ListServicesByNameAsync(string serviceName, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrWhiteSpace(serviceName))
+            {
+                throw new ValidationException(nameof(serviceName));
+            }
+
+            return await ListFilteredServices(new KeyValuePair<string, string>[] { new KeyValuePair<string, string>("filter", $"Service=={serviceName.ToLower()}") }, cancellationToken);
+        }
+
+        private async Task<IDictionary<string, ServiceAgent>> ListFilteredServices(KeyValuePair<string, string>[] queryParameters, CancellationToken cancellationToken)
+        {
+            var response = await httpClient.GetAsync(HttpUtils.BuildUrlWithParameters($"{Version}/agent/services", queryParameters), cancellationToken);
 
             return response.IsSuccessStatusCode ?
-                JsonConvert.DeserializeObject<IDictionary<string, ServiceAgent>>(await response.Content.ReadAsStringAsync(cancellationToken))!
+                JsonConvert.DeserializeObject<IDictionary<string, ServiceAgent>>(await response.Content.ReadAsStringAsync())
                 : new Dictionary<string, ServiceAgent>();
         }
 
-        public async Task<HttpResponseMessage> RegisterAsync(ServiceDetails serviceDetails, CancellationToken cancellationToken)
-            => await httpClient.PutAsync($"{Version}/agent/service/register", PrepareRequestPayload(serviceDetails), cancellationToken);
-
         private static StringContent PrepareRequestPayload(object payload)
-        {
-            var serializedContent = JsonConvert.SerializeObject(payload);
-            var requestPayload = new StringContent(serializedContent, Encoding.UTF8, MediaType);
-            return requestPayload;
-        }
+            => new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, MediaType);
     }
 }
 

@@ -1,4 +1,8 @@
 ﻿using Shopify.Consul.Services;
+using System;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Shopify.Consul.Http
 {
@@ -13,12 +17,12 @@ namespace Shopify.Consul.Http
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            request.RequestUri = await GetDiscoveredServiceUriAsync(request.RequestUri!, cancellationToken);
+            request.RequestUri = await GetDiscoveredServiceUriAsync(request.RequestUri, cancellationToken);
 
             return await base.SendAsync(request, cancellationToken);
         }
 
-        private async Task<Uri?> GetDiscoveredServiceUriAsync(Uri source, CancellationToken cancellationToken)
+        private async Task<Uri> GetDiscoveredServiceUriAsync(Uri source, CancellationToken cancellationToken)
         {
             var serviceAgent = await serviceRegistryProvider.GetAsync(source.Host, cancellationToken);
 
@@ -27,7 +31,7 @@ namespace Shopify.Consul.Http
                 return null;
             }
 
-            return BuildUri(source, serviceAgent.Address!, serviceAgent.Port);
+            return BuildUri(source, serviceAgent.Address, serviceAgent.Port);
         }
 
         private static Uri BuildUri(Uri source, string host, int port)

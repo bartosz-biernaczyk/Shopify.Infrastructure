@@ -1,4 +1,8 @@
 ﻿using Shopify.Consul.Models;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Shopify.Consul.Services
 {
@@ -6,6 +10,7 @@ namespace Shopify.Consul.Services
     {
         Task<HttpResponseMessage> RegisterAsync(ServiceDetails serviceDetails, CancellationToken token);
         Task<HttpResponseMessage> DeregisterAsync(string serviceId, CancellationToken token);
-        Task<IDictionary<string, ServiceAgent>> ListServicesAsync(string name, CancellationToken token);
+        Task<IDictionary<string, ServiceAgent>> ListServicesAsync(CancellationToken token);
+        Task<IDictionary<string, ServiceAgent>> ListServicesByNameAsync(string name, CancellationToken token);
     }
 }

@@ -5,6 +5,7 @@ using Shopify.Consul.Http;
 using Shopify.Consul.Models;
 using Shopify.Consul.Options;
 using Shopify.Consul.Services;
+using System;
 
 namespace Shopify.Consul.Extensions
 {
@@ -35,7 +36,7 @@ namespace Shopify.Consul.Extensions
                 return serviceCollection;
             }
 
-            ServiceDetails serviceDetails = new()
+            ServiceDetails serviceDetails = new ServiceDetails()
             {
                 Name = options.ServiceName,
                 ID = $"{options.ServiceName}:{Guid.NewGuid()}",

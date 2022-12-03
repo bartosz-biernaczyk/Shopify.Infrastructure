@@ -1,9 +1,12 @@
-﻿using Shopify.Consul.Options;
+﻿using Shopify.Consul.Constants;
+using Shopify.Consul.Options;
+using System;
 
 namespace Shopify.Consul.Builders
 {
     public class ConsulOptionsBuilder :
         IConsulOptionsBuilderInitial,
+        IConsulOptionsBuilderServiceAddressStage,
         IConsulOptionsBuilderNameStage,
         IConsulOptionsBuilderFinal,
         IConsulOptionsBuilderPortStage,
@@ -12,12 +15,20 @@ namespace Shopify.Consul.Builders
         private readonly ConsulOptions options;
         public ConsulOptionsBuilder()
         {
-            options = new();
+            options = new ConsulOptions();
         }
 
-        public ConsulOptions Build() => options;
+        public ConsulOptions Build() => options.Copy();
 
-        public IConsulOptionsBuilderFinal UseHttpClient(string key = "consul")
+        public IConsulOptionsBuilderServiceAddressStage Enable(Uri consulUri)
+        {
+            options.Enabled = true;
+            options.ConsulUrl = consulUri.ToString();
+
+            return this;
+        }
+
+        public IConsulOptionsBuilderFinal UseHttpClient(string key = ConsulConstants.DefaultHttpKey)
         {
             options.UseHttpClient = true;
             options.ClientKey = key;
@@ -32,7 +43,7 @@ namespace Shopify.Consul.Builders
 
         public IConsulOptionsBuilderPortStage WithName(string name)
         {
-            options.ServiceName = name;
+            options.ServiceName = name.ToLower();
             return this;
         }
 
