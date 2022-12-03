@@ -1,4 +1,5 @@
-﻿using Shopify.Consul.Options;
+﻿using Shopify.Consul.Constants;
+using Shopify.Consul.Options;
 using System;
 
 namespace Shopify.Consul.Builders
@@ -17,7 +18,7 @@ namespace Shopify.Consul.Builders
             options = new ConsulOptions();
         }
 
-        public ConsulOptions Build() => options;
+        public ConsulOptions Build() => options.Copy();
 
         public IConsulOptionsBuilderServiceAddressStage Enable(Uri consulUri)
         {
@@ -27,7 +28,7 @@ namespace Shopify.Consul.Builders
             return this;
         }
 
-        public IConsulOptionsBuilderFinal UseHttpClient(string key = "consul")
+        public IConsulOptionsBuilderFinal UseHttpClient(string key = ConsulConstants.DefaultHttpKey)
         {
             options.UseHttpClient = true;
             options.ClientKey = key;

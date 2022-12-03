@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Shopify.Consul.Options
 {
@@ -16,5 +17,24 @@ namespace Shopify.Consul.Options
         public TimeSpan DeregisterAfter { get; set; }
         public bool UseHttpClient { get; set; }
         public string ClientKey { get; set; }
+
+        internal ConsulOptions Copy()
+        {
+            return new ConsulOptions()
+            {
+                Enabled = Enabled,
+                ConsulUrl = ConsulUrl,
+                ServiceName = ServiceName,
+                ServiceAddress = ServiceAddress,
+                Port = Port,
+                Tags = Tags,
+                PingUrl = PingUrl,
+                PingInterval = PingInterval,
+                Timeout = Timeout,
+                DeregisterAfter = DeregisterAfter,
+                UseHttpClient = UseHttpClient,
+                ClientKey = ClientKey
+            };
+        }
     }
 }
