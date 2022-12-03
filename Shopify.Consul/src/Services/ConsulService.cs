@@ -38,7 +38,7 @@ namespace Shopify.Consul.Services
                 throw new ValidationException(nameof(serviceId));
             }
 
-            return await httpClient.PutAsync($"{Version}/agent/service/deregister/{serviceId}", PrepareRequestPayload(new { }), token);
+            return await httpClient.PutAsync($"{Version}/agent/service/deregister/{serviceId.ToLower()}", PrepareRequestPayload(new { }), token);
         }
 
         public async Task<IDictionary<string, ServiceAgent>> ListServicesAsync(CancellationToken token)
