@@ -154,6 +154,22 @@ namespace Shopify.Consul.UnitTests.Builders
             Assert.Equal(expectedDeregisterAfter, options.DeregisterAfter);
         }
 
+        [Fact]
+        public void WithTags_WhenCalled_AssignTags()
+        {
+            // Arrange
+            string[] expectedTags = new string[] { "tag1", "TAG2" };
+
+            // Act
+            builder.WithTags(expectedTags);
+
+            // Assert
+            var options = GetOptions(builder);
+
+            Assert.NotNull(options);
+            Assert.Equal(expectedTags, options.Tags);
+        }
+
 
         private static ConsulOptions GetOptions(ConsulOptionsBuilder builder)
             => builder.Build();
