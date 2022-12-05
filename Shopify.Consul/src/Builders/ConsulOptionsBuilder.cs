@@ -59,6 +59,12 @@ namespace Shopify.Consul.Builders
             return this;
         }
 
+        public IConsulOptionsBuilderFinal WithTags(string[] tags)
+        {
+            options.Tags = tags;
+            return this;
+        }
+
         public IConsulOptionsBuilderFinal WithTimeSettings(TimeSpan pingInterval, TimeSpan timeout, TimeSpan deregisterAfter)
         {
             options.PingInterval = pingInterval;

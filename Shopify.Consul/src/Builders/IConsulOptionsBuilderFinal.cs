@@ -6,5 +6,6 @@ namespace Shopify.Consul.Builders
     {
         IConsulEndpointOptionsBuilder WithPingEndpoint(string pingEndpoint);
         IConsulOptionsBuilderFinal UseHttpClient(string key = "consul");
+        IConsulOptionsBuilderFinal WithTags(string[] tags);
     }
 }

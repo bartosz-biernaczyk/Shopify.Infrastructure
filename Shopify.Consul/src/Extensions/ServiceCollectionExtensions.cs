@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Shopify.Consul.Builders;
 using Shopify.Consul.Http;
 using Shopify.Consul.Models;
@@ -38,7 +39,7 @@ namespace Shopify.Consul.Extensions
 
             ServiceDetails serviceDetails = new ServiceDetails()
             {
-                Name = options.ServiceName,
+                Name = options.ServiceName.ToLower(),
                 ID = $"{options.ServiceName}:{Guid.NewGuid()}",
                 Address = options.ServiceAddress,
                 Port = options.Port,
@@ -68,7 +69,7 @@ namespace Shopify.Consul.Extensions
 
             if (options.UseHttpClient)
             {
-                serviceCollection.AddHttpClient("consul")
+                serviceCollection.AddHttpClient(options.ClientKey ?? "consul")
                 .AddHttpMessageHandler(serviceProvider => new ServiceDiscoveryMessageHandler(serviceProvider.GetRequiredService<IServiceRegistryProvider>()));
             }
 
